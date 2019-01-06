@@ -10,7 +10,7 @@
   "iclue-backgroundvideo": {
     "source": {
       "type": "local",
-      "path": "/Users/w4a2y4/Desktop/webSART-cordova/node_modules/backgroundvideo"
+      "path": "/Users/charlottening/Desktop/webSART-cordova/node_modules/backgroundvideo"
     },
     "is_top_level": true,
     "variables": {}

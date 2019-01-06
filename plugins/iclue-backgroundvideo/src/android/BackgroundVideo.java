@@ -164,7 +164,7 @@ public class BackgroundVideo extends CordovaPlugin {
         int i = 1;
         String fileName = filename;
         while (new File(FILE_PATH + fileName + FILE_EXTENSION).exists()) {
-            fileName = filename + '_' + i;
+            fileName = filename + '_hi_' + i;
             i++;
         }
         return FILE_PATH + fileName + FILE_EXTENSION;
