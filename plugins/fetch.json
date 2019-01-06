@@ -1,0 +1,18 @@
+{
+  "cordova-plugin-whitelist": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-whitelist@1"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "iclue-backgroundvideo": {
+    "source": {
+      "type": "local",
+      "path": "/Users/w4a2y4/Desktop/webSART-cordova/node_modules/backgroundvideo"
+    },
+    "is_top_level": true,
+    "variables": {}
+  }
+}
