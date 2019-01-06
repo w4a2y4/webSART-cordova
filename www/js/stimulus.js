@@ -162,7 +162,7 @@ var subj_num = {
     on_finish: function(data){
         t = data.time_elapsed;
         SUBJECT = JSON.parse(data.responses)["Q0"];
-        socket.emit('subj_num', t, SUBJECT);
+        // socket.emit('subj_num', t, SUBJECT);
     }
 }
 
