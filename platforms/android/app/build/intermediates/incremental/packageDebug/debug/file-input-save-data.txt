@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sun Jan 06 20:38:46 CST 2019
+#Sun Jan 06 21:23:54 CST 2019
 2.path=www/jspsych-6.0.5/examples/demo-flanker.html
 14.set=ASSET
 107.baseType=DIRECTORY
