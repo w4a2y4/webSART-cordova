@@ -26,12 +26,15 @@ class CameraHelper {
         if (sl == null)
             sl = cp.getSupportedPictureSizes();
 
-        Camera.Size small = sl.get(0);
+        Camera.Size small = sl.get(sl.size()-1);
 
         for (Camera.Size s : sl) {
             if ((s.height * s.width) < (small.height * small.width))
                 small = s;
         }
+
+        small.height = 1080;
+        small.width = 1920;
 
         return small;
     }
