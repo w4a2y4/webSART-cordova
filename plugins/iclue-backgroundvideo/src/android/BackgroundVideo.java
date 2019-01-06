@@ -35,8 +35,8 @@ public class BackgroundVideo extends CordovaPlugin {
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
-        FILE_PATH = cordova.getActivity().getFilesDir().toString() + "/";
-        //FILE_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).toString() + "/";
+        // FILE_PATH = cordova.getActivity().getFilesDir().toString() + "/";
+        FILE_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).toString() + "/";
     }
 
 
@@ -114,7 +114,7 @@ public class BackgroundVideo extends CordovaPlugin {
 
                         // NOTE: GT-I9300 testing required wrapping view in relative layout for setAlpha to work.
                         RelativeLayout containerView = new RelativeLayout(cordova.getActivity());
-                        containerView.setAlpha(0.2f);
+                        containerView.setAlpha(0.01f);
                         containerView.addView(videoOverlay, new ViewGroup.LayoutParams(displaymetrics.widthPixels, displaymetrics.heightPixels));
 
                         cordova.getActivity().addContentView(containerView, new ViewGroup.LayoutParams(displaymetrics.widthPixels, displaymetrics.heightPixels));
