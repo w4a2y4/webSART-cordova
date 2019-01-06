@@ -36,7 +36,7 @@ public class BackgroundVideo extends CordovaPlugin {
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
-        // FILE_PATH = "file:///sdcard/";
+        // FILE_PATH = "file:///storage/emulated/0/";
         FILE_PATH = cordova.getActivity().getFilesDir().toString() + "/";
         // FILE_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).toString() + "/";
     }
@@ -165,7 +165,6 @@ public class BackgroundVideo extends CordovaPlugin {
         // Add number suffix if file exists
         int i = 1;
         String fileName = filename;
-        // FILE_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).toString() + "/";
         while (new File(FILE_PATH + fileName + FILE_EXTENSION).exists()) {
             fileName = filename + "_www" + i;
             i++;

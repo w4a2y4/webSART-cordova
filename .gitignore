@@ -8,6 +8,7 @@ platforms/android/bin/*
 platforms/android/gen/*
 platforms/android/res/xml/config.xml
 platforms/android/app/.idea/*
+platforms/android/app/build/*
 
 # iOS
 platforms/ios/build/*
