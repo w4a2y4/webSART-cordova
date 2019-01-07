@@ -3,18 +3,14 @@
   <head>
     <title>My experiment</title>
     <meta charset=utf-8>
-<!--     <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; media-src *; img-src 'self' data: content:;"> -->
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
     <link rel="stylesheet" type="text/css" href="css/index.css">
-    <!-- <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script> -->
-    <!-- <script src="/socket.io/socket.io.js"></script> -->
     <script type="text/javascript" src="cordova.js"></script>
     <script src="jspsych-6.0.5/jspsych.js"></script>
     <script src="jspsych-6.0.5/plugins/jspsych-html-keyboard-response.js"></script>
     <script src="jspsych-6.0.5/plugins/jspsych-html-button-response.js"></script>
-    <script src="jspsych-6.0.5/plugins/jspsych-image-keyboard-response.js"></script>
     <script src="jspsych-6.0.5/plugins/jspsych-image-button-response.js"></script>
     <script src="jspsych-6.0.5/plugins/jspsych-survey-text.js"></script>
     <script src="jspsych-6.0.5/plugins/jspsych-survey-likert.js"></script>
@@ -33,6 +29,7 @@
     const NONTARG_NUM = TRIAL_NUM - TARGET_NUM;
 
     var SUBJECT = -1;
+    var info = "";
 
     /******************************* prepare timelime ******************************/
 
@@ -74,7 +71,8 @@
                 .csv();
             var prob_data = dt.filter({test_part: 'prob'}).ignore(['internal_node_id', 'key_press', 'trial_index', 'trial_type', 'test_part'])
                 .csv();
-            // download(res_data + prob_data, "test.csv");
+            // download(info + res_data + prob_data, "test.csv");
+            console.log(info);
         }
     });
 
