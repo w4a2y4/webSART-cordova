@@ -1,0 +1,12 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "Robohon",
+  "short_name": "Robohon",
+  "version": "com.Robohon.Robohon",
+  "description": "RobohonApp",
+  "author": "robohon",
+  "icons": [],
+  "orientation": "landscape",
+  "start_url": "index.html"
+}

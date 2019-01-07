@@ -1,0 +1,57 @@
+
+.StiTable {
+  transform: translate(-50%, -45%);
+  width: 90%;
+}
+
+.Stimulus{
+  /*background-color: black;*/
+  font-size: 40px;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 50px;
+}
+
+.borderCue{
+    -webkit-box-shadow:inset 0px 0px 0px 1px black;
+    -moz-box-shadow:inset 0px 0px 0px 1px black;
+    box-shadow:inset 0px 0px 0px 1px black;
+}
+
+#Instruct #Confirm{
+  position: absolute;
+  bottom: 0;
+  left: 87%;
+}
+
+.instructImg{
+  margin-top:30px;
+}
+
+.Button{
+  width: 170px;
+  height: 100px;
+}
+
+td{
+  width:110px;
+  height: 110px;
+}
+
+.fas {
+    /*background-color: transparent;*/
+    width: 30px;
+    position: relative;
+    float: left;
+    animation: slide 5s linear infinite forwards;
+    animation-iteration-count:3;
+}
+
+@keyframes slide {
+    0%  {left:200px; top:60px;opacity:1;}
+    35% {left:680px; top:60px;opacity:1;}
+    45% {left:200px; top:180px;opacity:1;}
+    80% {left:680px; top:180px;opacity:1;} 
+    100%{left:200px; top:60px;opacity:0;}   
+}
+

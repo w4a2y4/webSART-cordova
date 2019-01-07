@@ -8,7 +8,11 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
     <link href="jspsych-6.0.5/css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <link rel="stylesheet" type="text/css" href="css/sart.css">
+
     <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/function.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+
     <script src="jspsych-6.0.5/jspsych.js"></script>
     <script src="jspsych-6.0.5/plugins/jspsych-html-keyboard-response.js"></script>
     <script src="jspsych-6.0.5/plugins/jspsych-html-button-response.js"></script>
@@ -65,8 +69,8 @@
         info += '"Start_vid" ,"' + now + '"\\n';
     }
 
-    var now = Date.now();
-    cordova.plugins.backgroundvideo.start('vid' + now, 'front', true, this.onVideoStart(now), null);
+    // var now = Date.now();
+    // cordova.plugins.backgroundvideo.start('vid' + now, 'front', true, this.onVideoStart(now), null);
 
     /****************************** start the experiment ******************************/
     jsPsych.init({

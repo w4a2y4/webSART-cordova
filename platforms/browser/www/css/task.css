@@ -1,0 +1,85 @@
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  outline:none;
+}
+
+
+html,body {
+  height: 99.5%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.Center {
+  display: table;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.Center *{
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.Center img{
+  margin: auto;
+}
+
+.Button {
+  display: table;
+  box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
+  text-align: center;
+  background-color: #A3A3A3;
+  cursor: pointer;
+}
+
+.Button:active {
+  box-shadow: 0 0 5px 2px rgba(0,0,0,0.6);
+}
+
+.Button *{
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#Instruct {
+  position: relative;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  line-height: 300%;
+  height: 100%;
+  padding: 7.5% 7.5% 5% 7.5%;
+}
+
+#Instruct h2{
+  font-weight: lighter;
+}
+
+#Instruct .gif{
+  height:60%;
+  width: 60%;
+  top:20%;
+}
+
+#Instruct #Confirm{
+  position: absolute;
+  bottom: 0;
+  left: 87%;
+}
+
+.Hide {
+  display: none !important;
+}
+
+.Hide *{
+  display: none;
+}
+
+
+.Button h1{
+    font-size:60px;
+}

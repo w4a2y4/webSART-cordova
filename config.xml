@@ -119,6 +119,7 @@
     <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,assets,root" />
     <preference name="Orientation" value="landscape" />
     <plugin name="cordova-plugin-file" spec="~6.0.1" />
-    <engine name="android" spec="^7.1.4" />
     <plugin name="iclue-backgroundvideo" spec="https://github.com/jamesla/backgroundvideo.git" />
+    <engine name="android" spec="^7.1.4" />
+    <engine name="browser" spec="^5.0.4" />
 </widget>
