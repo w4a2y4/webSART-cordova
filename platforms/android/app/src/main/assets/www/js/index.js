@@ -16,38 +16,97 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 var app = {
     // Application Constructor
     initialize: function() {
-        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        this.bindEvents();
     },
-
+    // Bind Event Listeners
+    //
+    // Bind any events that are required on startup. Common events are:
+    // 'load', 'deviceready', 'offline', and 'online'.
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
     // deviceready Event Handler
     //
-    // Bind any cordova events here. Common events are:
-    // 'pause', 'resume', etc.
+    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+    // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        this.receivedEvent('deviceready');
+        app.receivedEvent('deviceready');
     },
-
-    onVideoStart: function(now) {
-        console.log('Start vid: ' + now);
-        info += "Start_vid ," + now + "\\n";
-    },
-
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        // var parentElement = document.getElementById(id);
-        // var listeningElement = parentElement.querySelector('.listening');
-        // var receivedElement = parentElement.querySelector('.received');
+        var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector('.listening');
+        var receivedElement = parentElement.querySelector('.received');
 
-        // listeningElement.setAttribute('style', 'display:none;');
-        // receivedElement.setAttribute('style', 'display:block;');
-        var now = Date.now();
-        cordova.plugins.backgroundvideo.start('vid' + now, 'front', true, this.onVideoStart(now), null);
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
+
         console.log('Received Event: ' + id);
     }
 };
 
-app.initialize();
+
+(function () {
+    "use strict";
+
+    document.addEventListener('deviceready', onDeviceReady.bind(this), false);
+
+    function onDeviceReady() {
+    };
+
+    //按下送出按鈕後，將帳號及密碼送到Server端做驗證
+    $(document).on("submit", "form", function () {
+        $.ajax({
+            url: "[Server端做驗證的網頁]",  //如http://www.bggcs.com/app/member.php
+            type: "POST",
+            data: $(this).serialize(),  //使用者輸入的表單資料
+            //無法將資料傳送到Server端時，會顯示錯誤訊息
+            error: function () {
+                alert("傳送錯誤！");
+            },
+            //成功傳送資料後，以JSON格式接收資料
+            success: function (msg) {
+                var msg = JSON.parse(msg);
+                alert(msg.message);
+            }
+        });
+
+        return false;
+    });
+
+})();
+
+(function () {
+    "use strict";
+ 
+    document.addEventListener('deviceready', onDeviceReady.bind(this), false);
+ 
+    function onDeviceReady() {
+    };
+ 
+    //按下送出按鈕後，將帳號及密碼送到Server端做驗證
+    $(document).on("submit", "form", function () {
+        $.ajax({
+            url: "http://hpc.psy.ntu.edu.tw/~tylin/account.php",  //如http://www.bggcs.com/app/member.php
+            type: "POST",
+            data: $(this).serialize(),  //使用者輸入的表單資料
+            //無法將資料傳送到Server端時，會顯示錯誤訊息
+            error: function () {
+                alert("傳送錯誤！");
+            },
+            //成功傳送資料後，以JSON格式接收資料
+            success: function (msg) {
+                var msg = JSON.parse(msg);
+                alert(msg.message);
+            }
+        });
+ 
+        return false;
+    });
+ 
+})();
+
+

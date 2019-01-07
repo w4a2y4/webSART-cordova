@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script src="jquery-mobile/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="jquery-mobile/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+    <link href="jquery-mobile/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var url = "http://hpc.psy.ntu.edu.tw/~tylin/php/JSON.php";
+        $.getJSON(url, function(result) {
+            console.log(result);
+            $.each(result, function(i, field) {
+                var SubjectID = field.SubjectID;
+                var Response = field.Response;
+                var ResponseTime = field.ResponseTime;
+                // var price = field.price;
+                $("#Subjectlist").append("<div class='item'><h2>受試者：" + SubjectID + " </h2></div>");
+                // $("#Subjectlist").append("<div class='item'><span class='item-note'>" + SubjectID + "</span><h2>" + SubjectID + " </h2><p>" + ResponseTime + "</p></div>");
+                // $("#Subjectlist").append("<li><a style='font-size: 1.5em' rel='external'>"+SubjectID+"</a></li></ul>");
+            });
+        });
+
+
+    });
+    </script>
+    <style type="text/css">
+        #listview{
+            width: 80%;
+            left: 10%;
+            position: absolute;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div data-role="page" id="home" data-fullscreen="true">
+    <div data-role="header" data-position="fixed" data-theme="a">
+        <a href="index.html" rel="external" id="home" data-icon="home">首頁</a>
+      <h1 style="font-size: 2em">受試者資料</h1>
+    </div>
+    <div data-role="main" class="ui-content">
+      <!-- <h2 style="position: absolute; top: 18%; left: 10%">搜尋</h2> -->
+      <form style="position: absolute; top: 25%; left: 10%; width: 80%" class="ui-filterable">
+        <!-- <input style="font-size: 1.5em" idd="myFilter" data-type="search" placeholder="請輸入測驗名稱"> -->
+      </form>
+      <div class="listCont" style="">
+        <ul data-role="listview" data-filter="true" data-input="#myFilter" data-inset="true" data-dividertheme="e" id="Subjectlist">
+      </div>
+    </div>
+  </div>
+<!--       <div data-role="page" id="home" data-fullscreen="true">
+    <div data-role="header" data-position="fixed" data-theme="a" data-position="fixed">
+      <a href="index.html" rel="external" id="back" data-icon="forward" >回上頁</a>
+      <a href="index.html" rel="external" id="home" data-icon="home">首頁</a>
+      <h1 style="font-size: 2em">受試者資料</h1>
+    </div> -->
+<!--     <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <a href="index.html" rel="external" class="button button-clear" data-icon="home">Home</a>
+        <h1 class="title">資料庫</h1>
+    </div> -->
+<!--     <br/>
+    <br/>
+    <ul id = "listview" data-role="listview" data-filter="true" data-filter-placeholder="Search Subject" data-inset="true">
+        <li><a href="#">Apple</a></li>
+        <li><a href="#">Banana</a></li>
+        <li><a href="#">Cherry</a></li>
+        <li><a href="#">Cranberry</a></li>
+        <li><a href="#">Grape</a></li>
+        <li><a href="#">Orange</a></li>
+    </ul> -->
+<!--     <div data-role="main" class="ui-content">
+        <ul class="list" id="listview">
+            <li>
+                <div data-role="fieldcontain">
+                  <label>test </label>
+                  
+                </div>
+              </li>
+        </ul>
+    </div> -->
+</body>
+
+</html>

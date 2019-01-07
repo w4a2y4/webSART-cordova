@@ -1,0 +1,10 @@
+var X = 2048
+var Y = 1536
+var DeviceSize = 9.7
+var ViewDistance = 30
+var DevicePPI = Math.sqrt(X*X+Y*Y)/DeviceSize
+var DeviceRatio = 0.5028 // px/cm
+var FeedbackTimePractice = 800
+var FeedbackTimeFormal = 500
+var FeedbackTime = 500
+var db = openDatabase("Robohon", "1.0", "Robohon", 2*1020 * 1024)

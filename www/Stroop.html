@@ -1,0 +1,216 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Robohon-Stroop</title>
+</head>
+
+<style type="text/css">
+
+</style>
+
+<body>
+  <link rel = "stylesheet" type = "text/css" href = "css/task.css">
+  <link rel = "stylesheet" type = "text/css" href = "css/Stroop.css">
+  <!-- <div id="EndTask" style="position: absolute; top: 0%; left: 0%"></div> -->
+  <div align = "Center" id = "Instruct">
+    <h2 id="InstructFormal1"><img src='img/hand-point-up-regular.svg' class="fas fa-hand-point-up fa-2x"></i></h2>
+    <h2 class = "Hide" id = "InstructFormal2"><img src='img/hand-point-up-regular.svg' class="fas fa-hand-point-up fa-2x"></i></h2>
+    <h2 class = "Hide" id = "InstructFormal3"><img src='img/hand-point-up-regular.svg' class="fas fa-hand-point-up fa-2x"></i></i></h2>
+    <h2 class = "Hide" id = "InstructFormal4"><img src='img/hand-point-up-regular.svg' class="fas fa-hand-point-up fa-2x"></i></i></h2>
+    <div class = "Button Center" id = "Confirm"><h1>開始</h1></div>
+  </div>
+
+  <!-- 相對元素排列（需要js移動）-->
+  <div class = "Hide StiTable" id = "StiTable1" style = "position:fixed;top: 40%;left: 50%;"></div>
+  <div class = "Hide StiTable" id = "StiTable2" style = "position:fixed;top: 40%;left: 50%;"></div>
+  <div class = "Hide StiTable" id = "StiTable3" style = "position:fixed;top: 40%;left: 50%;"></div>
+  <div class = "Hide StiTable" id = "StiTable4" style = "position:fixed;top: 40%;left: 50%;"></div>
+    
+  <div class = "Center" style="position:fixed;top: 90%;left: 50%;">
+    <div class="Button Center Hide" style="position:absolute;" id = "Rest"><h1>繼續</h1></div>
+  </div>
+
+  <div class = "Center" style="position:fixed;top: 85.5%;left: 50%;">    
+    <div class="Button Center Hide ansButton" style="position:absolute;" id = "confirmButton"><h1>確認</h1></div>
+
+  </div>
+</body>
+
+<script src="js/jquery.js"></script>
+<script src="js/zepto.js"></script>
+<script src="js/parameter.js"></script>
+<script src="js/function.js"></script>
+<script src="instruct/Stroop.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script type="text/javascript">
+
+
+
+const INRow = 2 //instruction
+const INCol = 5 //instruction
+const NRow = 5 
+const NCol = 10
+
+// Task
+const NBlock = 4
+var Flag = 0
+var CurrentBlock = 1
+var ShowTime 
+var ClickTime
+// var ForceEnd = 0
+
+// Data record
+const SubjectID = localStorage.getItem("SubjectID")
+const Tablename = "Stroop"
+const  Column = ["SubjectID", "Sequence", "Response1", "ResponseRT1", "Response2", "ResponseRT2", "Response3", "ResponseRT3", "Response4", "ResponseRT4"]
+var timestamp = timeStamp()
+var data = []
+
+var Response = {
+  "Response1":[],"Response2":[],"Response3":[],"Response4":[]
+}
+
+var ResponseTime = {
+  "ResponseTime1":[],"ResponseTime2":[],"ResponseTime3":[],"ResponseTime4":[]
+}
+
+// Flag = 0; init
+// Flag = 1; press start
+// Flag = 2; Tasking
+// Flag = 3; finished Block
+// Flag = 4; pressed last sti
+
+// Flag = 8; 
+// Flag = 9; Task End
+
+$(document).ready(function() {
+  //Generate Stroop Sti
+  genStroopSti(INRow, INCol, NRow, NCol)
+
+  $("#Confirm").on('touchstart mousedown',function(e){
+    e.stopPropagation(); e.preventDefault();
+    if (Flag == 0 || Flag == 3){
+      $("#Instruct").hide()
+      $("#Instruct h2").addClass("Hide")
+      Flag = 1
+      start()
+    } else if (Flag == 9) {
+      window.location = "SelectTask.html"
+    }
+  })
+
+  $("#Rest").on('touchstart mousedown', function(e){
+      e.stopPropagation(); e.preventDefault();
+      if(confirm("階段結束，點確認進入下個階段")){
+        $("#StiTable"+CurrentBlock).addClass("Hide")
+        $("#Rest").addClass("Hide")
+        updateCurrent()
+      }
+    })
+  
+  $("td").on("touchmove touchstart", function(e){
+    e.stopPropagation(); e.preventDefault();
+    var touch = e.originalEvent.touches[0]
+    responseRecord(touch.clientX, touch.clientY);
+  })
+
+  })
+
+
+function start() {
+  if (Flag == 1) {
+    Flag = 2
+    ShowTime = new Date().Format("hh:mm:ss:S")
+    $("#StiTable"+CurrentBlock).removeClass("Hide")
+    // $(".debug").removeClass("Hide")
+    }
+}
+
+
+var previousTouch
+var currentTouch
+function responseRecord(x, y) {
+    $("td[id^=B"+CurrentBlock+"_td]").each(function() {
+      // check if is inside boundaries
+      if (!(
+          x <= $(this).offset().left || x >= $(this).offset().left + $(this).outerWidth() ||
+          y <= $(this).offset().top  || y >= $(this).offset().top + $(this).outerHeight()
+      )) {
+              
+        currentTouch = this.id.slice(5)
+
+        if (currentTouch !== Response["Response"+CurrentBlock][Response["Response"+CurrentBlock].length-1]){
+          Response["Response"+CurrentBlock] = Response["Response"+CurrentBlock].concat(this.id.slice(5))
+          ResponseTime["ResponseTime"+CurrentBlock] = ResponseTime["ResponseTime"+CurrentBlock].concat(new Date().Format("hh:mm:ss:S"))
+          previousTouch = this.id
+        }
+
+        if (currentTouch == NRow*NCol){
+          if (Flag == 2){
+            setTimeout(function(){
+              $("#Rest").removeClass("Hide")
+            }, 1000)
+          }
+          Flag = 4 //pressed last stimulus
+        }
+      }
+    });
+}
+
+
+function updateCurrent(){
+  CurrentBlock++
+  if (CurrentBlock <= NBlock){
+    Flag = 3
+    $("#InstructFormal"+CurrentBlock).removeClass("Hide")
+    // $(".ansButton").addClass("Hide")
+    // $(".debug").addClass("Hide")
+    $("#Instruct").show()
+
+  }else if(CurrentBlock > NBlock){
+    Flag = 9
+    $("#Confirm").html("<h1>結束</h1>")
+    $("#InstructEnd").removeClass("Hide")
+    // $(".debug").addClass("Hide")
+    $("#Instruct").show()
+    datarecord();
+  }
+}
+
+function datarecord() {
+  var Responselength = 0
+  for (key in Response){ 
+    if(Response[key].length > Responselength){
+      Responselength = Response[key].length
+    }
+  }
+  for (key in Response){
+    Response[key] = Response[key].concat(Array(Responselength-Response[key].length).fill("null"))
+  }
+  for (key in ResponseTime){
+    ResponseTime[key] = ResponseTime[key].concat(Array(Responselength-ResponseTime[key].length).fill("null"))
+  }
+  var Sequence = new Array(Responselength);
+  for (var i = 0 ; i < Responselength; i++){
+    Sequence[i] = i+1
+  }
+  
+  data += Column + "\n"
+  
+  for (var i = 0; i < Responselength; i++){
+    data += SubjectID+","
+    data += Sequence[i]+","
+    for (var j = 1; j <= NBlock; j++){
+      data+= Response["Response"+j][i]+","
+      data+= ResponseTime["ResponseTime"+j][i]+","
+    }
+    data += "\n"
+  }
+  console.log(data)
+  exportCSV()
+}
+
+
+</script>
+</html>
