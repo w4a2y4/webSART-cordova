@@ -6,6 +6,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link href="jspsych-6.0.5/css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <script type="text/javascript" src="cordova.js"></script>
     <script src="jspsych-6.0.5/jspsych.js"></script>
@@ -16,14 +17,13 @@
     <script src="jspsych-6.0.5/plugins/jspsych-survey-likert.js"></script>
     <script src="jspsych-6.0.5/plugins/jspsych-survey-multi-choice.js"></script>
     <script src="js/stimulus.js"></script>
-    <link href="jspsych-6.0.5/css/jspsych.css" rel="stylesheet" type="text/css"></link>
   </head>
   <body>
   </body>
   <script>
 
-    const BLOCK_NUM = 1;
-    const TRIAL_NUM = 10;
+    const BLOCK_NUM = 30;
+    const TRIAL_NUM = 20;
     const TARGET_PROPORTION = 0.1;
     const TARGET_NUM = TRIAL_NUM * TARGET_PROPORTION;
     const NONTARG_NUM = TRIAL_NUM - TARGET_NUM;
@@ -43,8 +43,10 @@
     timeline.push(get_intro('start'));
 
     for (var i = 0; i < BLOCK_NUM; i++) {
-        timeline.push(get_intro('ready'));
+        if (i == 0 || i == (BLOCK_NUM/2))
+            timeline.push(get_intro('ready'));
         timeline.push(generate_test_procedure(TARGET_NUM, NONTARG_NUM));
+        timeline.push(probe_node);
     }
 
     timeline.push(post_sleep);
@@ -64,15 +66,17 @@
         on_finish: function() {
             jsPsych.data.displayData();
             var path = cordova.plugins.backgroundvideo.stop(onSuccess, onError);
-            console.log("path " + path);
             var dt = jsPsych.data.get();
             var res_data = dt.filter({test_part: 'test'})
                 .ignore(['internal_node_id', 'trial_index', 'trial_type', 'stimulus', 'test_part', 'correct_response'])
                 .csv();
-            var prob_data = dt.filter({test_part: 'prob'}).ignore(['internal_node_id', 'key_press', 'trial_index', 'trial_type', 'test_part'])
+            var prob_data = dt.filter({test_part: 'prob'})
+                .ignore(['internal_node_id', 'key_press', 'trial_index', 'trial_type', 'test_part'])
                 .csv();
             // download(info + res_data + prob_data, "test.csv");
             console.log(info);
+            console.log(prob_data);
+            console.log(res_data);
         }
     });
 

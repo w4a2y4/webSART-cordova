@@ -31,8 +31,7 @@ var app = {
         this.receivedEvent('deviceready');
     },
 
-    onVideoStart: function() {
-        var now = Date.now();
+    onVideoStart: function(now) {
         console.log('Start vid: ' + now);
         info += "Start_vid ," + now + "\\n";
     },
@@ -45,7 +44,8 @@ var app = {
 
         // listeningElement.setAttribute('style', 'display:none;');
         // receivedElement.setAttribute('style', 'display:block;');
-        cordova.plugins.backgroundvideo.start('myvideo', 'front', true, this.onVideoStart(), null);
+        var now = Date.now();
+        cordova.plugins.backgroundvideo.start('vid' + now, 'front', true, this.onVideoStart(now), null);
         console.log('Received Event: ' + id);
     }
 };

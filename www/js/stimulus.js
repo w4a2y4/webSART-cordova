@@ -1,5 +1,5 @@
 /****************************** define stimulus ******************************/
-
+var SHOW_PROB = false;
 
 var instructions = {
     start: {
@@ -64,6 +64,7 @@ var probe_attention = {
             '3 在思考與作業無關的事情'
         ]
     }],
+    data: {test_part: 'prob'}
 }
 
 var probe_performance = {
@@ -72,6 +73,7 @@ var probe_performance = {
         prompt: '<h2>呈上題，你覺得自己在那前15秒鐘的作業表現如何?</h2>1 相當不好 <-> 7 相當好',
         labels: ['1', '2', '3', '4', '5', '6', '7']
     }],
+    data: {test_part: 'prob'}
 }
 
 var pre_sleep = {
@@ -80,6 +82,7 @@ var pre_sleep = {
         prompt: '<h2>實驗正式開始前，請問你現在的睏睡程度如何?</h2>1 完全不睏睡 <-> 4 相當睏睡',
         labels: ['1', '2', '3', '4']
     }],
+    data: {test_part: 'prob'}
 }
 
 var post_sleep = {
@@ -88,6 +91,7 @@ var post_sleep = {
         prompt: '<h2>請問你現在的睏睡程度如何?</h2>1 完全不睏睡 <-> 4 相當睏睡',
         labels: ['1', '2', '3', '4']
     }],
+    data: {test_part: 'prob'}
 }
 
 /****************************** define timelines ******************************/
@@ -100,6 +104,17 @@ var blank = {
   data: {test_part: 'blank'}
 }
 
+var probe_node = {
+    timeline: [probe_attention, probe_performance],
+    timeline_variables: "1",
+    conditional_function: function(){
+        console.log(SHOW_PROB);
+        var tmp = SHOW_PROB;
+        SHOW_PROB = false;
+        return tmp;
+    }
+}
+
 var test = {
   type: "html-button-response",
   stimulus: jsPsych.timelineVariable('stimulus'),
@@ -110,26 +125,27 @@ var test = {
   on_finish: function(data){
     data.test_part = 'test';
     data.correct = ( data.button_pressed == data.correct_response );
+    if( !data.correct ) SHOW_PROB = true;
     if (data.rt == null) data.time_onset = data.time_elapsed - 2000;
     else data.time_onset = data.time_elapsed - data.rt;
   }
 }
 
-var probe = {
-    type: jsPsych.timelineVariable('type'),
-    stimulus: jsPsych.timelineVariable('stimulus'),
-    choices: jsPsych.timelineVariable('choices'),
-    data: jsPsych.timelineVariable('data'),
-    on_finish: function(data){
-        data.test_part = 'prob';
-        data.ans = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
-    }
-}
+// var probe = {
+//     type: jsPsych.timelineVariable('type'),
+//     stimulus: jsPsych.timelineVariable('stimulus'),
+//     choices: jsPsych.timelineVariable('choices'),
+//     data: jsPsych.timelineVariable('data'),
+//     on_finish: function(data){
+//         data.ans = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
+//     }
+// }
 
 var intro = {
     type: 'html-button-response',
     stimulus: jsPsych.timelineVariable('stimulus'),
     choices: ['continue'],
+    button_html: '<button class="jspsych-btn" style="width: 20vw; height: 15vh;">%choice%</button>',
     data: jsPsych.timelineVariable('data'),
     test_part: 'intro'
 }
@@ -141,7 +157,8 @@ var subj_num = {
         t = data.time_elapsed;
         var now = Date.now();
         SUBJECT = JSON.parse(data.responses)["Q0"];
-        info += "Psych_offset ," + now + " , " + t + "\\n";
+        info += '"Psych_offset" ,"' + now + '" , "' + t + '"\\n';
+        info += '"subj_num ","' + SUBJECT + '"\\n';
     }
 }
 

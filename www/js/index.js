@@ -33,7 +33,7 @@ var app = {
 
     onVideoStart: function(now) {
         console.log('Start vid: ' + now);
-        info += "Start_vid ," + now + "\\n";
+        info += '"Start_vid" ,"' + now + '"\\n';
     },
 
     // Update DOM on a Received Event

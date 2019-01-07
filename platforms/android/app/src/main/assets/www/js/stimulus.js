@@ -130,6 +130,7 @@ var intro = {
     type: 'html-button-response',
     stimulus: jsPsych.timelineVariable('stimulus'),
     choices: ['continue'],
+    button_html: '<button class="jspsych-btn" style="width: 20vw; height: 15vh;">%choice%</button>',
     data: jsPsych.timelineVariable('data'),
     test_part: 'intro'
 }
