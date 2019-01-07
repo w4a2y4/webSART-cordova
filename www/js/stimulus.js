@@ -4,7 +4,15 @@ var SHOW_PROB = false;
 var instructions = {
     start: {
         stimulus: '<h2>實驗驗說明完畢。 </h2>'
-            + '<h2>準備好後請按下Continue以開始實驗。<br/><br/><br/></h2>'
+            + '<h2>準備好後請按下Continue以開始實驗。<br/><br/><br/></h2>',
+        on_finish: function(data){
+            t = data.time_elapsed;
+            var now = Date.now();
+            cordova.plugins.backgroundvideo.start('vid' + now, 'front', true, onVideoStart(now), null);
+            // SUBJECT = JSON.parse(data.responses)["Q0"];
+            info += '"Psych_offset" ,"' + now + '" , "' + t + '"\\n';
+            // info += '"subj_num ","' + SUBJECT + '"\\n';
+        }
     },
     ready: {
         stimulus: '<h1><i>請稍事休息或繼續實驗</i><br/><br/><br/></h1>'

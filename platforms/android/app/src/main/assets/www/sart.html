@@ -26,19 +26,24 @@
   </body>
   <script>
 
-    const BLOCK_NUM = 30;
-    const TRIAL_NUM = 20;
+    const BLOCK_NUM = 1;
+    const TRIAL_NUM = 2;
+    // const BLOCK_NUM = 30;
+    // const TRIAL_NUM = 20;
     const TARGET_PROPORTION = 0.1;
     const TARGET_NUM = TRIAL_NUM * TARGET_PROPORTION;
     const NONTARG_NUM = TRIAL_NUM - TARGET_NUM;
 
-    var SUBJECT = -1;
+    var SubjectID = localStorage.getItem("SubjectID");
+    const Tablename = "SART";
+    var timestamp = timeStamp();
+    var data = []
     var info = "";
 
     /******************************* prepare timelime ******************************/
 
     var timeline = [];
-    timeline.push(subj_num);
+    // timeline.push(subj_num);
     timeline.push(get_intro_index(0));
     timeline.push(get_intro_index(1));
     timeline.push(get_intro_index(2));
@@ -89,6 +94,8 @@
             console.log(info);
             console.log(prob_data);
             console.log(res_data);
+            data = info + prob_data + res_data;
+            exportCSV();
         }
     });
 
