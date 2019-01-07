@@ -34,36 +34,14 @@ var instructions = {
                 + '<h2>或是直接繼續實驗。<br/><br/><br/></h2>'
         }
     ],
-    probe: [
-        {
-            type: "image-keyboard-response",
-            stimulus: "img/probe/Probe1.jpg",
-            choices: ["1", "2", "3"],
-        },
-        {
-            type: "image-keyboard-response",
-            stimulus: "img/probe/Probe2.jpg",
-            choices: ["1", "2", "3", "4", "5", "6", "7"],
-        }
-    ],
     end: {
         stimulus: '<h2>本階段實驗結束，謝謝您的參與。<h2/>'
             + '<p>(請通知主試者)<br/><br/><br/></p>'
-    },
-    pre_sleep: {
-        type: "image-keyboard-response",
-        stimulus: "img/preSleepiness.jpg",
-        choices: ["1", "2", "3", "4"]
-    },
-    post_sleep: {
-        type: "image-keyboard-response",
-        stimulus: "img/postSleepiness.jpg",
-        choices: ["1", "2", "3", "4"]
     }
 }
 
 var target_stumuli = {
-    stimulus: "<h1>3</h1>",
+    stimulus: "<h1 style='font-size: 5em; font-weight: bold;'>3</h1>",
     data: { correct_response: null, isTarget: true }
 }
 
@@ -71,7 +49,7 @@ var non_target_stimuli = [];
 for (var i = 0; i < 10; i++) {
     if (i == 3) continue;
     non_target_stimuli.push({
-        stimulus: "<h1>" + i + "</h1>",
+        stimulus: "<h1 style='font-size: 5em; font-weight: bold;'>" + i + "</h1>",
         data: { correct_response: '0', isTarget: false }
     });
 }
@@ -126,7 +104,7 @@ var test = {
   type: "html-button-response",
   stimulus: jsPsych.timelineVariable('stimulus'),
   choices: [" "],
-  button_html: '<button class="jspsych-btn" style="width: 80vw; height: 30vh; position: relative; top: 20vh;">%choice%</button>',
+  button_html: '<button class="jspsych-btn" style="width: 30vw; height: 20vh; position: relative; top: 20vh;">%choice%</button>',
   data: jsPsych.timelineVariable('data'),
   trial_duration: 2000,
   on_finish: function(data){
@@ -161,8 +139,9 @@ var subj_num = {
     questions: [{prompt: "subj_num"}],
     on_finish: function(data){
         t = data.time_elapsed;
+        var now = Date.now();
         SUBJECT = JSON.parse(data.responses)["Q0"];
-        // socket.emit('subj_num', t, SUBJECT);
+        info += "Psych_offset ," + now + " , " + t + "\\n";
     }
 }
 

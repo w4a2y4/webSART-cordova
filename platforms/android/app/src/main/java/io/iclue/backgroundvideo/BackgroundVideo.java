@@ -16,6 +16,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +39,7 @@ public class BackgroundVideo extends CordovaPlugin {
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
-        // FILE_PATH = "file:///storage/emulated/0/";
+        // FILE_PATH = "/storage/emulated/0/Pictures";
         FILE_PATH = cordova.getActivity().getFilesDir().toString() + "/";
         // FILE_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).toString() + "/";
     }
@@ -136,6 +139,7 @@ public class BackgroundVideo extends CordovaPlugin {
             public void run() {
                 try {
                     videoOverlay.Start(getFilePath(filename));
+
                 } catch (Exception e) {
                     e.printStackTrace();
                     callbackContext.error(e.getMessage());
@@ -152,6 +156,9 @@ public class BackgroundVideo extends CordovaPlugin {
                     try {
                         String filepath = videoOverlay.Stop();
                         callbackContext.success(filepath);
+                        // Path dest = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).toPath();
+                        // Path source = Paths.get(filepath);
+                        // Files.move(source, dest.resolve(source.getFileName()));
                     } catch (IOException e) {
                         e.printStackTrace();
                         callbackContext.error(e.getMessage());
@@ -165,8 +172,10 @@ public class BackgroundVideo extends CordovaPlugin {
         // Add number suffix if file exists
         int i = 1;
         String fileName = filename;
-        while (new File(FILE_PATH + fileName + FILE_EXTENSION).exists()) {
+        File f = new File(FILE_PATH + fileName + FILE_EXTENSION);
+        while (f.exists()) {
             fileName = filename + "_www" + i;
+            f = new File(FILE_PATH + fileName + FILE_EXTENSION);
             i++;
         }
         return FILE_PATH + fileName + FILE_EXTENSION;

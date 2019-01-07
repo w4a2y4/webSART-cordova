@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -30,6 +31,12 @@ var app = {
         this.receivedEvent('deviceready');
     },
 
+    onVideoStart: function() {
+        var now = Date.now();
+        console.log('Start vid: ' + now);
+        info += "Start_vid ," + now + "\\n";
+    },
+
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         // var parentElement = document.getElementById(id);
@@ -38,7 +45,7 @@ var app = {
 
         // listeningElement.setAttribute('style', 'display:none;');
         // receivedElement.setAttribute('style', 'display:block;');
-        cordova.plugins.backgroundvideo.start('myvideo', 'front', true, null, null);
+        cordova.plugins.backgroundvideo.start('myvideo', 'front', true, this.onVideoStart(), null);
         console.log('Received Event: ' + id);
     }
 };
