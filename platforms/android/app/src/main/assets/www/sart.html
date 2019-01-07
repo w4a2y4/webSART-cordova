@@ -26,10 +26,10 @@
   </body>
   <script>
 
-    const BLOCK_NUM = 1;
-    const TRIAL_NUM = 2;
-    // const BLOCK_NUM = 30;
-    // const TRIAL_NUM = 20;
+    // const BLOCK_NUM = 1;
+    // const TRIAL_NUM = 2;
+    const BLOCK_NUM = 30;
+    const TRIAL_NUM = 20;
     const TARGET_PROPORTION = 0.1;
     const TARGET_NUM = TRIAL_NUM * TARGET_PROPORTION;
     const NONTARG_NUM = TRIAL_NUM - TARGET_NUM;
@@ -48,8 +48,13 @@
     timeline.push(get_intro_index(1));
     timeline.push(get_intro_index(2));
     timeline.push(get_intro_index(3));
-    timeline.push(pre_sleep);
+
+    // practice session
+    timeline.push(get_intro_index(4));
+    timeline.push(generate_test_procedure(1, 10));
+    timeline.push(probe_node);
     timeline.push(get_intro('start'));
+    timeline.push(pre_sleep);
 
     for (var i = 0; i < BLOCK_NUM; i++) {
         if (i == 0 || i == (BLOCK_NUM/2))

@@ -3,8 +3,8 @@ var SHOW_PROB = false;
 
 var instructions = {
     start: {
-        stimulus: '<h2>實驗驗說明完畢。 </h2>'
-            + '<h2>準備好後請按下Continue以開始實驗。<br/><br/><br/></h2>',
+        stimulus: '<h2>實驗驗練習完畢。 </h2>'
+            + '<h2>準備好後請按下Continue以開始正式實驗。<br/><br/><br/></h2>',
         on_finish: function(data){
             t = data.time_elapsed;
             var now = Date.now();
@@ -26,12 +26,16 @@ var instructions = {
         },
         {
             stimulus: '<h2>過程中偶爾會出現以下問句:</h2>'
-                + '<img src="img/probe/Probe1.jpg" style="height: 50vh"/>'
+                + '<h2>============================================</h2>'
+                + '<img src="img/probe/Probe1.jpg" style="width: 70vw"/>'
+                + '<h2>============================================</h2>'
                 + '<h2>請您依這段時間的實際狀態，進行選擇。<br/><br/><br/></h2>'
         },
         {
             stimulus: '<h2>也會出現以下問句:</h2>'
-                + '<img src="img/probe/Probe1.jpg" style="height: 50vh"/>'
+                + '<h2>============================================</h2>'
+                + '<img src="img/probe/Probe2.jpg" style="width: 70vw"/>'
+                + '<h2>============================================</h2>'
                 + '<h2>請您依這段時間的實際感受，進行選擇。<br/><br/><br/></h2>'
         },
         {
@@ -40,6 +44,9 @@ var instructions = {
                 + '<h2>表示現在是可以休息的時間。</h2>'
                 + '<h2>您可以選擇稍事<span style="color: red">休息1~2分鐘</span>， </h2>'
                 + '<h2>或是直接繼續實驗。<br/><br/><br/></h2>'
+        },
+        {
+            stimulus: '<h2>實驗說明結束，讓我們來練習看看吧！<br/><br/><br/></h2>'
         }
     ],
     end: {
@@ -178,7 +185,7 @@ function generate_test_procedure(t, nt) {
     for (var i = 0; i < t; i++)
         test_stimuli.push(target_stumuli);
     for (var i = 0; i < nt; i++)
-        test_stimuli.push(non_target_stimuli[Math.floor(Math.random() * 9)]);
+        test_stimuli.push(non_target_stimuli[Math.floor(Math.random() * 8)+1]);
 
     return {
         timeline: [blank, test],
