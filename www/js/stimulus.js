@@ -3,15 +3,14 @@ var SHOW_PROB = false;
 
 var instructions = {
     start: {
-        stimulus: '<h2>實驗驗練習完畢。 </h2>'
-            + '<h2>準備好後請按下Continue以開始正式實驗。<br/><br/><br/></h2>',
+        stimulus: '<h2>實驗練習完畢。</h2>'
+            + '<h2>準備好後請按下「繼續」以開始正式實驗。<br/><br/><br/></h2>',
         on_finish: function(data){
             t = data.time_elapsed;
             var now = Date.now();
             cordova.plugins.backgroundvideo.start('vid' + now, 'front', true, onVideoStart(now), null);
-            // SUBJECT = JSON.parse(data.responses)["Q0"];
+            console.log('start recording');
             info += '"Psych_offset" ,"' + now + '" , "' + t + '"\\n';
-            // info += '"subj_num ","' + SUBJECT + '"\\n';
         }
     },
     ready: {
@@ -77,7 +76,8 @@ var probe_attention = {
             '1 專注在這個作業上',
             '2 被別的刺激分心',
             '3 在思考與作業無關的事情'
-        ]
+        ],
+        required: true
     }],
     data: {test_part: 'prob'}
 }
@@ -86,7 +86,8 @@ var probe_performance = {
     type: 'survey-likert',
     questions: [{
         prompt: '<h2>呈上題，你覺得自己在那前15秒鐘的作業表現如何?</h2>1 相當不好 <-> 7 相當好',
-        labels: ['1', '2', '3', '4', '5', '6', '7']
+        labels: ['1', '2', '3', '4', '5', '6', '7'],
+        required: true
     }],
     data: {test_part: 'prob'}
 }
@@ -95,7 +96,8 @@ var pre_sleep = {
     type: 'survey-likert',
     questions: [{
         prompt: '<h2>實驗正式開始前，請問你現在的睏睡程度如何?</h2>1 完全不睏睡 <-> 4 相當睏睡',
-        labels: ['1', '2', '3', '4']
+        labels: ['1', '2', '3', '4'],
+        required: true
     }],
     data: {test_part: 'prob'}
 }
@@ -104,7 +106,8 @@ var post_sleep = {
     type: 'survey-likert',
     questions: [{
         prompt: '<h2>請問你現在的睏睡程度如何?</h2>1 完全不睏睡 <-> 4 相當睏睡',
-        labels: ['1', '2', '3', '4']
+        labels: ['1', '2', '3', '4'],
+        required: true
     }],
     data: {test_part: 'prob'}
 }
@@ -159,24 +162,17 @@ var test = {
 var intro = {
     type: 'html-button-response',
     stimulus: jsPsych.timelineVariable('stimulus'),
-    choices: ['continue'],
+    choices: ['繼續'],
     button_html: '<button class="jspsych-btn" style="width: 20vw; height: 15vh;">%choice%</button>',
     data: jsPsych.timelineVariable('data'),
+    on_finish: jsPsych.timelineVariable('on_finish'),
     test_part: 'intro'
 }
 
-var subj_num = {
-    type: 'survey-text',
-    questions: [{prompt: "subj_num"}],
-    on_finish: function(data){
-        t = data.time_elapsed;
-        var now = Date.now();
-        cordova.plugins.backgroundvideo.start('vid' + now, 'front', true, onVideoStart(now), null);
-        // SUBJECT = JSON.parse(data.responses)["Q0"];
-        info += '"Psych_offset" ,"' + now + '" , "' + t + '"\\n';
-        // info += '"subj_num ","' + SUBJECT + '"\\n';
-    }
-}
+// var subj_num = {
+//     type: 'survey-text',
+//     questions: [{prompt: "subj_num"}]
+// }
 
 /****************************** define functions ******************************/
 
