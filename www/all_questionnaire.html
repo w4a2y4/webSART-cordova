@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> -->
+  <title>Robohon</title>
+  <script src="jquery-mobile/jquery-2.1.4.min.js" type="text/javascript"></script>
+  <script>
+    $(document).bind('mobileinit',function(){
+      $.mobile.pushStateEnabled = false;
+    });
+  </script>
+  <script src="jquery-mobile/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+  <link href="jquery-mobile/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<style type="text/css">
+
+.button{
+  background: gray;
+  border: 1px gray solid;
+  color:white;
+  border-radius: 50px;
+  margin: auto;
+  display: block;
+  height:50px;
+}
+
+form{
+  height:50px
+}
+
+.Hide{
+    display: none;
+}
+
+</style>
+
+<body style="margin:0px;padding:0px;overflow:hidden">
+  <div data-role="page" data-fullscreen="true">
+    <div data-role="footer" data-position="fixed" data-theme="a">
+      <form>
+            <!-- 填答完請輸入代號：<input data-role="none" type="text" name="token"> -->
+            <!-- <input type="button" class="button" data-role="none" value="按完送出再按此鍵"> -->
+      </form>
+    </div>
+    <div id = "Q_list">
+
+    </div>
+    
+  </div>
+</body>
+
+<script src="js/parameter.js"></script>
+<script src="js/function.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script type="text/javascript">
+
+
+    var Q_list = {
+      "version1": "https://www.surveycake.com/s/9kRgP",
+      "version2": "https://www.surveycake.com/s/v4OWV",
+      // "Basic": "https://www.surveycake.com/s/v4OWV",
+      // "Chang": "https://www.surveycake.com/s/8a2qP",
+      // "Wu": "https://www.surveycake.com/s/nK6Pl",
+      // "Huang_1": "https://www.surveycake.com/s/azpPW",
+      // "Huang_2": "  https://www.surveycake.com/s/gyDPA",
+      // "Yeh" : "https://www.surveycake.com/s/W84Vv"
+      }
+    
+    // var random_list = shuffle(["Chang", "Wu", "Huang_1", "Huang_2", "Yeh"])
+    var random_list = shuffle(["version1", "version2"])
+
+    var counter = 0
+
+    $(document).ready(function(){
+        
+        //append Q iframe
+        // for (key in Q_list){
+        //     $("#Q_list").append('<iframe id="'+key+'"  class="Hide" src="'+Q_list[key]+'" frameborder="0" style="overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px" height="100%" width="100%"></iframe>')
+        // }
+        //append Q iframe
+
+        $("#Q_list").append('<iframe id="'+random_list[0]+'" src="'+Q_list[random_list[0]]+'" frameborder="0" style="overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px" height="100%" width="100%"></iframe>')
+
+        // $("#Basic").removeClass("Hide");
+        
+        // $(".button").on("click", function(){
+          
+        //   if (currentiframeURL !== Q_list[currentiframeid]){
+        //     alert("hi")
+        //     if (counter == random_list.length){
+        //       alert("h2")
+        //       window.location = "SelectTask.html"
+        //     }else{
+        //       alert("h3")
+        //       $("#Q_list *").addClass("Hide")
+        //       $("#"+random_list[counter]).removeClass("Hide")
+        //       counter++
+        //     }
+        //   }else{
+        //     alert("請填答完問卷後")
+        //   }
+
+        //   })
+      })
+
+    function shuffle(a) {
+        var j, x, i;
+        for (i = a.length - 1; i > 0; i--) {
+            j = Math.floor(Math.random() * (i + 1));
+            x = a[i];
+            a[i] = a[j];
+            a[j] = x;
+            }
+            return a;
+        }
+
+
+  </script>
+</html>
